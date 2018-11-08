@@ -2,29 +2,35 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Клиент.
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $city
+ * @property string $country
+ * @property Account $account
+ *
+ * @package App
+ */
 class User extends Authenticatable
 {
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
+    protected $casts = [
+        'id' => 'integer',
     ];
 
+    protected $guarded = [];
+
     /**
-     * The attributes that should be hidden for arrays.
+     * Клиент имеет один кошелек.
      *
-     * @var array
+     * @return HasOne
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function account(): HasOne
+    {
+        return $this->hasOne(Account::class);
+    }
 }

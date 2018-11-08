@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Account;
+use App\Currency;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,9 +25,22 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+
+        Route::model('iso', Currency::class);
+
+        Route::bind(
+            'account',
+            $this->accountBindClosure()
+        );
+        Route::bind(
+            'receiverAccount',
+            $this->accountBindClosure()
+        );
+        Route::bind(
+            'senderAccount',
+            $this->accountBindClosure()
+        );
     }
 
     /**
@@ -38,8 +53,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-
-        //
     }
 
     /**
@@ -69,5 +82,24 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * @return \Closure
+     */
+    private function accountBindClosure(): \Closure
+    {
+        return function ($id) {
+            if (! is_numeric($id)) {
+                abort(400, 'Invalid account id.');
+            }
+
+            $account = Account::whereKey($id)->first();
+            if (! $account) {
+                abort(404, 'Account not found.');
+            }
+
+            return $account;
+        };
     }
 }

@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/register', 'API\RegisterController@register')->name('registration');
+Route::post('/topup/{account}', 'API\TopupController@topup')->name('topup');
+Route::post('/transfer/{senderAccount}/{receiverAccount}', 'API\TransferController@transfer')->name('transfer');
+Route::post('/exchange_rates/{iso}/usd', 'API\ExchangeRateController@store')->name('exchange_rate');
