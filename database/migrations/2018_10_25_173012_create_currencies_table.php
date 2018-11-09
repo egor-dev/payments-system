@@ -14,7 +14,7 @@ class CreateCurrenciesTable extends Migration
     public function up()
     {
         Schema::create('currencies', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id')->autoIncrement();
+            $table->tinyIncrements('id');
             $table->string('name');
             $table->char('iso', 3)->unique(); // rur, usd, eur...
             $table->char('sign', 2); // $, £, €, ¥, ₽, C$, A$...
