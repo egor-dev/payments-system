@@ -25,7 +25,7 @@ class CreateExchangeRatesTable extends Migration
             $table->foreign('variable_currency_id')->references('id')->on('currencies');
 
             // для выборки в конвертере валют в момент совершения операций
-            $table->index(['date', 'fixed_currency_id']);
+            $table->index(['date', 'fixed_currency_id', 'variable_currency_id']);
         });
     }
 
