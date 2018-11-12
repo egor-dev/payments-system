@@ -36,7 +36,7 @@ class ExchangeRateController extends Controller
         $maxRate = config('app.exchange_rate.max');
 
         $validatedData = $request->validate([
-            'rate' => "required|string|numeric|min:$minRate|max:$maxRate",
+            'rate' => "required|string|numeric|between:$minRate,$maxRate|regex:/^\d*(\.\d{1,5})?$/",
             'date' => "required|date_format:Y-m-d|after_or_equal:$today",
         ]);
 

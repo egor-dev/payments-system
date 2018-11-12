@@ -45,10 +45,11 @@ class ApiExchangeRateUpload extends TestCase
             'POST',
             '/api/exchange_rates/usd/usd',
             [
-                'rate' => 500, // 0.50rub
+                'rate' => '500', // 0.50rub
                 'date' => Carbon::now()->toDateString(),
             ]
         )
+            ->assertSee('You can not store usd/usd exchange rate.')
             ->assertStatus(400);
     }
 
@@ -58,10 +59,11 @@ class ApiExchangeRateUpload extends TestCase
             'POST',
             '/api/exchange_rates/rur/usd',
             [
-                'rate' => 500, // 0.50rub
+                'rate' => '500', // 0.50rub
                 'date' => Carbon::yesterday()->toDateString(),
             ]
         )
+            ->assertSee('The date must be a date after or equal to')
             ->assertStatus(422);
     }
 
@@ -71,10 +73,11 @@ class ApiExchangeRateUpload extends TestCase
             'POST',
             '/api/exchange_rates/rur/usd',
             [
-                'rate' => 500, // 0.50rub
-                'date' => Carbon::now()->subDays(2),
+                'rate' => '500', // 0.50rub
+                'date' => Carbon::now()->subDays(2)->toDateString(),
             ]
         )
+            ->assertSee('The date must be a date after or equal to')
             ->assertStatus(422);
     }
 }
