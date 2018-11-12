@@ -50,10 +50,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof ModelNotFoundException && $request->isJson()) {
-            abort(404, 'Model not found.');
-        }
-
         return parent::render($request, $exception);
     }
 }
