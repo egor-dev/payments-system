@@ -74,7 +74,7 @@ class CreateTopup implements ShouldQueue
     {
         DB::transaction(function () {
             $this->account->newQuery()->whereKey($this->account->id)->lockForUpdate()->first();
-            $this->account->balance = bcadd($this->account->balance, $this->amount);
+            $this->account->balance = custom_round(bcadd($this->account->balance, $this->amount));
             $this->account->save();
 
             $transaction = Transaction::create(

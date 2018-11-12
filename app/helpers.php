@@ -14,3 +14,18 @@ function money_output($amount, $currencySign)
 {
     return number_format($amount, 2, ',', ' ') . ' ' . $currencySign;
 }
+
+/**
+ * @see https://floating-point-gui.de/languages/php/
+ *
+ * @param $value
+ * @return string
+ */
+function custom_round($value)
+{
+    if (! is_float($value)) {
+        $value = (float)$value;
+    }
+
+    return number_format($value, 2, '.', '');
+}

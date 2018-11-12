@@ -153,9 +153,9 @@ class CreateTransfer implements ShouldQueue
                 throw new TransferException('Can not transfer too frequently.');
             }
 
-            $this->senderAccount->balance = bcsub($this->senderAccount->balance, $subtractAmount);
+            $this->senderAccount->balance = custom_round(bcsub($this->senderAccount->balance, $subtractAmount));
             $this->senderAccount->save();
-            $this->receiverAccount->balance = bcadd($this->receiverAccount->balance, $addAmount);
+            $this->receiverAccount->balance = custom_round(bcadd($this->receiverAccount->balance, $addAmount));
             $this->receiverAccount->save();
 
             $transaction = Transaction::create(

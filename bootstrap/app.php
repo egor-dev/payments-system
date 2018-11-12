@@ -11,7 +11,7 @@
 |
 */
 
-bcscale(2);
+bcscale(5);
 
 $app = new Illuminate\Foundation\Application(
     dirname(__DIR__)

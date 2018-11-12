@@ -67,8 +67,9 @@ class InsertOrUpdateOperationsAggregation
             ]);
         } else {
             /** @var $operationsAggregation OperationsAggregation */
-            $operationsAggregation->sum = bcadd($operationsAggregation->sum, $amount);
-            $operationsAggregation->sum_usd = bcadd($operationsAggregation->sum_usd, $amountUsd);
+            $operationsAggregation->sum = custom_round(bcadd($operationsAggregation->sum, $amount));
+            $operationsAggregation->sum_usd = custom_round(bcadd($operationsAggregation->sum_usd, $amountUsd));
+
             $operationsAggregation->save();
         }
     }
