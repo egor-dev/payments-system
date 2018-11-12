@@ -28,7 +28,7 @@ class TopupController
 
         $validatedData = $request->validate(
             [
-                'amount' => "required|string|numeric|min:$amountMin|max:$amountMax",
+                'amount' => "required|string|numeric|between:$amountMin,$amountMax|regex:/^\d*(\.\d{1,2})?$/",
             ]
         );
 

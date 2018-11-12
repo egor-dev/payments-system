@@ -29,7 +29,7 @@ class TransferController extends Controller
         $amountMax = config('app.transfer.amount.max');
 
         $validatedData = $request->validate([
-            'amount' => "required|string|numeric|min:$amountMin|max:$amountMax",
+            'amount' => "required|string|numeric|between:$amountMin,$amountMax|regex:/^\d*(\.\d{1,2})?$/",
             'in_currency_of' => 'required|in:sender,receiver',
         ]);
 
