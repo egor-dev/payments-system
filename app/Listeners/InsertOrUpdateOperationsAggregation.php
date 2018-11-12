@@ -22,7 +22,8 @@ class InsertOrUpdateOperationsAggregation
      *
      * @param CurrencyConverter $currencyConverter
      */
-    const USD = 'usd';
+    private const USD = 'usd';
+
     /**
      * @var CurrencyConverter
      */
