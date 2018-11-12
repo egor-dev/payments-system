@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Возвращает деньги в читабельном формате "1 234,00 $".
  * Хоть в разных валютах формат может меняться (доллар пишется сначала),
@@ -18,14 +20,10 @@ function money_output($amount, $currencySign)
 /**
  * @see https://floating-point-gui.de/languages/php/
  *
- * @param $value
+ * @param string $value
  * @return string
  */
-function custom_round($value)
+function custom_round(string $value)
 {
-    if (! is_float($value)) {
-        $value = (float)$value;
-    }
-
-    return number_format($value, 2, '.', '');
+    return number_format((float) $value, 2, '.', '');
 }
